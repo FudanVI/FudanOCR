@@ -12,28 +12,10 @@ pip install -r requirement.txt
 ```
 
 ## Dataset
-Download all resources at [BaiduYunDisk]() with password: ????, or [Dropbox]()
+* HWDB dataset can be accessed in [link](http://www.nlpr.ia.ac.cn/databases/handwriting/Home.html)
+* CTW dataset can be accessed in [link](https://ctwdataset.github.io/)
 
-Dataset for seen settign:
-* HWDB1.0 handwritten dataset 
-* HWDB1.1 handwritten dataset 
-* ICDAR2013 handwritten dataset
-* CTW scene character dataset
-
-Dataset for zero-shot experiments:
-* Handwritten dataset in **Character Zero-Shot** Setting
-* Handwritten dataset in **Radical Zero-Shot** Setting
-* Printed artistic dataset  in **Character Zero-Shot** Setting
-* Printed artistic dataset in **Radical Zero-Shot** Setting
-* CTW scene character dataset  in **Character Zero-Shot** Setting
-* CTW scene character dataset in **Radical Zero-Shot** Setting
-
-All the resources shoulded be placed under ```./dataset/mydata```, for example
-```python
-./dataset/mydata//train_1000
-./dataset/mydata//test_1000
-...
-```
+All the resources shoulded be placed under ```./dataset/mydata```
 
 
 ## Experiment
@@ -41,6 +23,9 @@ Please remember to modify ```config.py``` and then execute
 ```python
 CUDA_VISIBLE_DEVICES=GPU_NUM python train.py
 ```
+
+
+## Acknowledge
 
 
 
