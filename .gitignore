@@ -6,3 +6,4 @@ visualization
 *.ipynb
 demo
 runs
+*.mdb
