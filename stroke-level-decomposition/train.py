@@ -15,7 +15,7 @@ from util import get_dataloader, get_data_package, converter, tensor2str, \
     character_to_strokelist, confusing_character_340, get_support_sample_feature_strokelet, to_gray_image_zero_one, \
     confusing_feature_strokelet
 
-writer = SummaryWriter('runs/{}'.format(datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')))
+writer = SummaryWriter('history/{}'.format(config['exp_name']))
 
 mode = config['mode']  # character / strokelet
 saver()

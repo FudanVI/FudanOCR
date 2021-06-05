@@ -236,11 +236,11 @@ def is_correct(epoch, model, mode, probe_feature, pred, gt, word_label, clean_ca
         else:
             if confusing_feature_strokelet is None:
                 confusing_dict1, gallery_combine1 = get_support_sample_feature_strokelet(model,
-                                                                                         './data/10_confusing_340_simsun.pkl')
+                                                                                         './mydata/print_font_templaet/simsun.pkl')
                 confusing_dict2, gallery_combine2 = get_support_sample_feature_strokelet(model,
-                                                                                         './data/10_confusing_340_simkai.pkl')
+                                                                                         './mydata/print_font_templaet/simkai.pkl')
                 confusing_dict3, gallery_combine3 = get_support_sample_feature_strokelet(model,
-                                                                                         './data/10_confusing_340_simfang.pkl')
+                                                                                         './mydata/print_font_templaet/simfang.pkl')
                 confusing_feature_strokelet = []
                 confusing_feature_strokelet.append((confusing_dict1, gallery_combine1))
                 confusing_feature_strokelet.append((confusing_dict2, gallery_combine2))
