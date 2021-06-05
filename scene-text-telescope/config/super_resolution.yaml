@@ -1,10 +1,9 @@
 MODEL:
 
-# /home/db/TextZoom/src
 TRAIN:
   train_data_dir: [
-    './TextSR_dataset/train1',
-    './TextSR_dataset/train2',
+    './dataset/mydata/train1',
+    './dataset/mydata/train2',
   ]
   batch_size: 512
   width: 128
@@ -14,10 +13,10 @@ TRAIN:
   ngpu: 4
   workers: 8
   resume: ''
-  ckpt_dir: './ckpt/' # 改成实验名
-  voc_type: 'all' #'digits lower upper all'
+  ckpt_dir: './ckpt/'
+  voc_type: 'all'
   saveInterval: 200
-  displayInterval: 50 #display loss
+  displayInterval: 50
   adadelta: False
   lr: 0.0001
   adam: True
@@ -29,16 +28,16 @@ TRAIN:
 
   VAL:
     val_data_dir: [
-      './TextSR_dataset/test/easy',
-      './TextSR_dataset/test/medium',
-      './TextSR_dataset/test/hard',
+      './dataset/mydata/test/easy',
+      './dataset/mydata/test/medium',
+      './dataset/mydata/test/hard',
     ]
     n_vis: 10
     vis_dir: 'demo'
-    valInterval: 1000 #-1, val at the end of epoch
-    rec_pretrained: 'demo.pth.tar'
-    moran_pretrained: '/home/chenjingye/moran.pth'
-    crnn_pretrained: '/home/chenjingye/TextZoom/src/crnn.pth'
+    valInterval: 1000
+    rec_pretrained: '.'
+    moran_pretrained: '.'
+    crnn_pretrained: './dataset/mydata/crnn.pth'
 
 TEST:
   checkpoint: ''

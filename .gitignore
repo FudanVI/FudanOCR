@@ -1,0 +1,6 @@
+*.pth
+mydata
+ckpt
+__pycache__
+visualization
+*.ipynb

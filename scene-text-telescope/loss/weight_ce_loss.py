@@ -10,7 +10,7 @@ for index in range(len(standard_alphebet)):
 
 # 获得混淆矩阵
 def load_confuse_matrix():
-    f = open('/home/chenjingye/TextZoom/src/Transformer_pretrain/confuse.pkl', 'rb')
+    f = open('./dataset/mydata/confuse.pkl', 'rb')
     data = pkl.load(f)
     f.close()
     # 由于alphabet不一样，这里需要调整一下顺序

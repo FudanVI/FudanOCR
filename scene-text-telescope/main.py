@@ -17,7 +17,7 @@ def main(config, args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--arch', default='tsrn', choices=['tsrn_v2', 'tsrn', 'bicubic', 'srcnn', 'vdsr', 'srres', 'esrgan', 'rdn',
+    parser.add_argument('--arch', default='tsrn', choices=['tbsrn', 'tsrn', 'bicubic', 'srcnn', 'vdsr', 'srres', 'esrgan', 'rdn',
                                                            'edsr', 'lapsrn'])
     parser.add_argument('--test', action='store_true', default=False)
     parser.add_argument('--test_data_dir', type=str, default='../dataset/lmdb/str/TextZoom/test/medium/', help='')

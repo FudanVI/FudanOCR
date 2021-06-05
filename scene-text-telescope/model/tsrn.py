@@ -88,7 +88,6 @@ class RecurrentResidualBlock(nn.Module):
         self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm2d(channels)
         self.gru2 = GruBlock(channels, channels)
-        self.feature_enhancer = FeatureEnhancer()
 
     def forward(self, x):
         residual = self.conv1(x)

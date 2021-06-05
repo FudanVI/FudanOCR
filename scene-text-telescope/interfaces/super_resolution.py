@@ -27,7 +27,6 @@ import pickle
 torch.set_printoptions(precision=None, threshold=100000, edgeitems=None, linewidth=None, profile=None, sci_mode=None)
 import time
 from torch.utils.tensorboard import SummaryWriter
-from thop import profile
 exp_name = input('请输入实验名：  ')
 
 import shutil
@@ -40,14 +39,14 @@ except:
 
 # 清除重复的实验名
 try:
-    shutil.rmtree('0323_跑一下新识别/{}'.format(exp_name))
+    shutil.rmtree('visualization/{}'.format(exp_name))
     print('清除同名的参数文件！')
 except:
     pass
-os.mkdir('0323_跑一下新识别/{}'.format(exp_name))  # 创建参数保存文件夹
+os.mkdir('visualization/{}'.format(exp_name))  # 创建参数保存文件夹
 
 to_pil = transforms.ToPILImage()
-writer = SummaryWriter('0323_跑一下新识别/{}'.format(exp_name)) # 用实验名命名
+writer = SummaryWriter('visualization/{}'.format(exp_name)) # 用实验名命名
 
 times = 0
 easy_test_times = 0
