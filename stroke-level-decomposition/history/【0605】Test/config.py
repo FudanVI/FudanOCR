@@ -2,7 +2,7 @@ config = {
     'exp_name': '【0605】Test',
     'epoch': 500,
     'lr': 1.0,
-    'mode': 'strokelet',  # character / strokelet
+    'mode': 'stroke',  # character / stroke
     'batch': 32,
     'val_frequency': 1000,
     'test_only': False,

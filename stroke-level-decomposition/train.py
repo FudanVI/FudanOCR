@@ -11,13 +11,13 @@ from torch.utils.tensorboard import SummaryWriter
 
 from model.transformer import Transformer
 from util import get_dataloader, get_data_package, converter, tensor2str, \
-    saver, get_alphabet, rectify, is_correct, must_in_screen, confusing_feature_strokelet, \
-    character_to_strokelist, confusing_character_340, get_support_sample_feature_strokelet, to_gray_image_zero_one, \
-    confusing_feature_strokelet
+    saver, get_alphabet, rectify, is_correct, must_in_screen, confusing_feature_stroke, \
+    character_to_strokelist, confusing_character_340, get_support_sample_feature_stroke, to_gray_image_zero_one, \
+    confusing_feature_stroke
 
 writer = SummaryWriter('history/{}'.format(config['exp_name']))
 
-mode = config['mode']  # character / strokelet
+mode = config['mode']  # character / stroke
 saver()
 must_in_screen()
 alphabet = get_alphabet(mode)
@@ -44,27 +44,12 @@ mse_loss = torch.nn.MSELoss()
 ######### Prepare data
 train_loader, test_loader = get_data_package()
 
-
-class FewShotDataset(Dataset):
-
-    def __init__(self, pair):
-        self.samples = pair
-
-    def __len__(self):
-        return len(self.samples)
-
-    def __getitem__(self, index):
-        return self.samples[index]
-
-
+######### Prepare for loading pkl
 class SupportSample(Dataset):
-
     def __init__(self, pair):
         self.samples = pair
-
     def __len__(self):
         return len(self.samples)
-
     def __getitem__(self, index):
         return self.samples[index]
 
