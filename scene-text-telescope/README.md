@@ -4,7 +4,7 @@ This is the code for CVPR2021 paper "Scene Text Telescope: Text-Focused Scene Im
 
 ![architecture](./image/architecture.png)
 
-![result](./image/result_example.png)
+![result](./image/result_example.jpg)
 
 
 ## Dependencies
