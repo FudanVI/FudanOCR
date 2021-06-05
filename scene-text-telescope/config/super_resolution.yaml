@@ -1,0 +1,51 @@
+MODEL:
+
+# /home/db/TextZoom/src
+TRAIN:
+  train_data_dir: [
+    './TextSR_dataset/train1',
+    './TextSR_dataset/train2',
+  ]
+  batch_size: 512
+  width: 128
+  height: 32
+  epochs: 50000
+  cuda: True
+  ngpu: 4
+  workers: 8
+  resume: ''
+  ckpt_dir: './ckpt/' # 改成实验名
+  voc_type: 'all' #'digits lower upper all'
+  saveInterval: 200
+  displayInterval: 50 #display loss
+  adadelta: False
+  lr: 0.0001
+  adam: True
+  beta1: 0.5
+  manualSeed: 1234
+  max_len: 100
+  keep_ratio: False
+  down_sample_scale: 2
+
+  VAL:
+    val_data_dir: [
+      './TextSR_dataset/test/easy',
+      './TextSR_dataset/test/medium',
+      './TextSR_dataset/test/hard',
+    ]
+    n_vis: 10
+    vis_dir: 'demo'
+    valInterval: 1000 #-1, val at the end of epoch
+    rec_pretrained: 'demo.pth.tar'
+    moran_pretrained: '/home/chenjingye/moran.pth'
+    crnn_pretrained: '/home/chenjingye/TextZoom/src/crnn.pth'
+
+TEST:
+  checkpoint: ''
+  test_data_dir: [
+  ]
+
+CONVERT:
+  image_dir:
+  lmdb_dir:
+  n_convert: 10
