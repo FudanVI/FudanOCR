@@ -1,5 +1,5 @@
 config = {
-    'exp_name': '【0605】Test',
+    'exp_name': '【0605】测试匹配过程移植正常',
     'epoch': 500,
     'lr': 1.0,
     'mode': 'stroke',  # character / stroke
