@@ -4,3 +4,4 @@ ckpt
 __pycache__
 visualization
 *.ipynb
+demo

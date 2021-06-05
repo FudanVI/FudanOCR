@@ -117,7 +117,6 @@ class lmdbDataset_real(Dataset):
         return self.nSamples
 
     def __getitem__(self, index):
-        # print("调用lmdb_real")
         assert index <= len(self), 'index range error'
         index += 1
         txn = self.env.begin(write=False)

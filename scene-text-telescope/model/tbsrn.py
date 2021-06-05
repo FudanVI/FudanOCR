@@ -12,9 +12,6 @@ import math, copy
 
 warnings.filterwarnings("ignore")
 
-sys.path.append('./')
-sys.path.append('../')
-
 from .tps_spatial_transformer import TPSSpatialTransformer
 from .stn_head import STNHead
 
@@ -85,20 +82,13 @@ class FeatureEnhancer(nn.Module):
         batch = conv_feature.shape[0]
         position2d = positionalencoding2d(64,16,64).float().cuda().unsqueeze(0).view(1,64,1024)
         position2d = position2d.repeat(batch,1,1)
-        # print(conv_feature.shape)
-        # print(position2d.shape)
         conv_feature = torch.cat([conv_feature, position2d],1) # batch, 128(64+64), 32, 128
-
         result = conv_feature.permute(0, 2, 1).contiguous()
-
         origin_result = result
         result = self.mul_layernorm1(origin_result + self.multihead(result, result, result, mask=None)[0])
-
         origin_result = result
         result = self.mul_layernorm3(origin_result + self.pff(result))
-
         result = self.linear(result)
-
         return result.permute(0, 2, 1).contiguous()
 
 
@@ -122,11 +112,6 @@ class MultiHeadedAttention(nn.Module):
             # Same mask applied to all h heads.
             mask = mask.unsqueeze(1)
         nbatches = query.size(0)
-
-        # cnt = 0
-        # for l , x in zip(self.linears, (query, key, value)):
-        #     print(cnt,l,x)
-        #     cnt += 1
 
         # 1) Do all the linear projections in batch from d_model => h x d_k
         query, key, value = \
@@ -178,9 +163,9 @@ class PositionwiseFeedForward(nn.Module):
         return self.w_2(self.dropout(F.relu(self.w_1(x))))
 
 
-class TSRN(nn.Module):
+class TBSRN(nn.Module):
     def __init__(self, scale_factor=2, width=128, height=32, STN=True, srb_nums=5, mask=False, hidden_units=32, input_channel=3):
-        super(TSRN, self).__init__()
+        super(TBSRN, self).__init__()
 
         self.conv = nn.Conv2d(input_channel, 3,3,1,1)
         self.bn = nn.BatchNorm2d(3)
@@ -227,9 +212,6 @@ class TSRN(nn.Module):
                 activation='none')
 
     def forward(self, x):
-
-        # x = self.relu(self.bn(self.conv(x)))
-        # embed()
         if self.stn and self.training:
             # x = F.interpolate(x, self.tps_inputsize, mode='bilinear', align_corners=True)
             _, ctrl_points_x = self.stn_head(x)
@@ -242,73 +224,6 @@ class TSRN(nn.Module):
             ((block['1'] + block[str(self.srb_nums + 2)]))
         output = torch.tanh(block[str(self.srb_nums + 3)])
         return output
-
-class image2wordvec(nn.Module):
-    def __init__(self):
-        super(image2wordvec, self).__init__()
-
-        self.conv1 = nn.Conv2d(3, 16, 3, 1, 1)
-        self.bn1 = nn.BatchNorm2d(16)
-
-        self.conv2 = nn.Conv2d(16,32, 3, 1, 1)
-        self.bn2 = nn.BatchNorm2d(32)
-
-        self.conv3 = nn.Conv2d(32, 64, 3, 1, 1)
-        self.bn3 = nn.BatchNorm2d(64)
-
-        self.conv4 = nn.Conv2d(64, 128, 3, 1, 1)
-        self.bn4 = nn.BatchNorm2d(128)
-
-        self.conv5 = nn.Conv2d(128, 256, 3, 1, 1)
-        self.bn5 = nn.BatchNorm2d(256)
-        
-        self.gru1 = GruBlock(256,256)
-        self.gru2 = GruBlock(256,256)
-
-        self.linear1 = nn.Linear(16,128)
-        self.linear2 = nn.Linear(128,300)
-        self.maxpooling = nn.MaxPool2d((2,2))
-        self.maxpooling21 = nn.MaxPool2d((2,1))
-
-        self.relu = nn.ReLU()
-
-    def forward(self, image):
-        batch = image.shape[0]
-
-        x = self.relu(self.bn1(self.conv1(image)))
-        x = self.maxpooling(x)
-
-        x = self.relu(self.bn2(self.conv2(x)))
-        x = self.maxpooling(x)
-
-        x = self.relu(self.bn3(self.conv3(x)))
-        x = self.maxpooling(x)
-
-        x = self.relu(self.bn4(self.conv4(x)))
-        x = self.maxpooling21(x)
-        
-        x = self.relu(self.bn5(self.conv5(x)))
-        x = self.maxpooling21(x)
-        
-        x = self.gru1(x)
-        x = self.gru2(x)
-
-        x = torch.mean(x,1).view(batch,-1)
-
-        x = x.view(batch, -1)
-        return self.linear2(self.relu(self.linear1(x)))
-
-
-class MyTSRN(nn.Module):
-    def __init__(self):
-        super(MyTSRN, self).__init__()
-
-        self.tsrn = TSRN(scale_factor=2, width=128, height=32, STN=True, srb_nums=5, mask=False, hidden_units=32)
-
-    def forward(self, lr_img):
-
-        sr_img = self.tsrn(lr_img)
-        return sr_img
 
 
 class RecurrentResidualBlock(nn.Module):
@@ -389,17 +304,3 @@ class GruBlock(nn.Module):
         x = x.permute(0, 3, 1, 2).contiguous()
         return x
 
-
-if __name__ == '__main__':
-    model = MyTSRN().cuda()
-    model = nn.DataParallel(model)
-
-    input = torch.Tensor(32,3,16,64).cuda()
-    o1, o2, o3, i1, i2, i3 = model(input)
-    print(o1.shape, o2.shape, o3.shape)
-    print(i1.shape, i2.shape, i3.shape)
-
-    # model = image2wordvec().cuda()
-    # input = torch.Tensor(32,3,32,128).cuda()
-    # output = model(input)
-    # print(output.shape)

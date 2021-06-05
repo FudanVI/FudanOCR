@@ -1,0 +1,12 @@
+[06:04:12.675] Namespace(STN=True, arch='tsrn', batch_size=32, demo=False, demo_dir='./demo', exp_name='test_resume', hd_u=32, mask=False, mixed=False, rec='crnn', resume='/home/db/FudanOCR/scene-text-telescope/checkpoint/test/checkpoint.pth', srb=5, syn=False, test=False, test_data_dir=None, text_focus=False)
+[06:04:14.885] loading pre-trained model from /home/db/FudanOCR/scene-text-telescope/checkpoint/test/checkpoint.pth 
+[06:04:14.927] Total Parameters 2671020
+[06:04:15.012] loading pretrained crnn model from ./dataset/mydata/crnn.pth
+[06:04:16.127] [2021-06-05 06:04:16]	Epoch: [0][1/542]	total_loss 27.627 	mse_loss 0.276 	attention_loss -1.000 	recognition_loss -1.000 	
+[06:04:16.128] ======================================================
+[06:04:16.128] evaling easy
+[06:04:24.061] [2021-06-05 06:04:24]	loss_rec 0.000| loss_im 0.000	PSNR 5.54 | SSIM 0.0183	
+[06:04:24.062] save display images
+[06:04:24.062] sr_accuray: 0.00%
+[06:04:24.062] best_easy = 0.00%
+[06:04:24.063] evaling medium

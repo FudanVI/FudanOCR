@@ -1,32 +1,29 @@
-import torch
-import sys
 import os
-from tqdm import tqdm
-import math
-import torch.nn as nn
-import torch.optim as optim
-from IPython import embed
-import math
 import cv2
+import sys
+import math
+import torch
+import shutil
 import string
-from PIL import Image
+import logging
 import torchvision
+from PIL import Image
+from tqdm import tqdm
+import torch.nn as nn
+from IPython import embed
+import torch.optim as optim
 from torchvision import transforms
 from torch.autograd import Variable
 from collections import OrderedDict
+from torch.utils.tensorboard import SummaryWriter
 
-from model import  tsrn, edsr, mytsrn, srcnn, srresnet
-# from model import recognizer
-# from model import moran
-from model import crnn
+from model import tbsrn, tsrn, edsr, srcnn, srresnet, crnn
+import dataset.dataset as dataset
 from dataset import lmdbDataset, alignCollate_real, ConcatDataset, lmdbDataset_real, alignCollate_syn, lmdbDataset_mix
-from loss import gradient_loss, percptual_loss, info_loss
-
+from loss import gradient_loss, percptual_loss, text_focus_loss
+from utils import util, ssim_psnr, utils_moran, utils_crnn
 from utils.labelmaps import get_vocabulary, labels2strs
 
-sys.path.append('../')
-from utils import util, ssim_psnr, utils_moran, utils_crnn
-import dataset.dataset as dataset
 
 def get_parameter_number(net):
     total_num = sum(p.numel() for p in net.parameters())
@@ -60,13 +57,35 @@ class TextBase(object):
         self.voc_type = self.config.TRAIN.voc_type
         self.alphabet = alpha_dict[self.voc_type]
         self.max_len = config.TRAIN.max_len
-        self.vis_dir = self.args.vis_dir if self.args.vis_dir is not None else self.config.TRAIN.VAL.vis_dir
+        # self.vis_dir = self.args.vis_dir if self.args.vis_dir is not None else self.config.TRAIN.VAL.vis_dir
         self.cal_psnr = ssim_psnr.calculate_psnr
         self.cal_ssim = ssim_psnr.SSIM()
         self.mask = self.args.mask
         alphabet_moran = ':'.join(string.digits+string.ascii_lowercase+'$')
         self.converter_moran = utils_moran.strLabelConverterForAttention(alphabet_moran, ':')
         self.converter_crnn = utils_crnn.strLabelConverter(string.digits + string.ascii_lowercase)
+        self.clean_old_ckpt()
+        self.logging = logging
+        self.make_logger()
+        self.make_writer()
+
+    def make_logger(self):
+        self.logging.basicConfig(filename="checkpoint/{}/log.txt".format(self.args.exp_name),
+                            level=self.logging.INFO,
+                            format='[%(asctime)s.%(msecs)03d] %(message)s', datefmt='%H:%M:%S')
+        self.logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+        self.logging.info(str(self.args))
+
+    def clean_old_ckpt(self):
+        if os.path.exists('checkpoint/{}'.format(self.args.exp_name)):
+            shutil.rmtree('checkpoint/{}'.format(self.args.exp_name))
+            print(f'Clean the old checkpoint {self.args.exp_name}')
+        os.mkdir('checkpoint/{}'.format(self.args.exp_name))
+
+
+    def make_writer(self):
+        self.writer = SummaryWriter('checkpoint/{}'.format(self.args.exp_name))
+
 
     def get_train_data(self):
         cfg = self.config.TRAIN
@@ -102,7 +121,6 @@ class TextBase(object):
 
     def get_test_data(self, dir_):
         cfg = self.config.TRAIN
-        self.args.test_data_dir
         test_dataset = self.load_dataset(root=dir_,
                                          voc_type=cfg.voc_type,
                                          max_len=cfg.max_len,
@@ -118,27 +136,27 @@ class TextBase(object):
 
     def generator_init(self):
         cfg = self.config.TRAIN
-        if self.args.arch == 'tsrn_v2':
-            model = mytsrn.MyTSRN()
-            image_crit = info_loss.ContentLoss()
+        if self.args.arch == 'tbsrn':
+            model = tbsrn.TBSRN(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height,
+                              STN=self.args.STN, mask=self.mask, srb_nums=self.args.srb, hidden_units=self.args.hd_u)
+            image_crit = text_focus_loss.TextFocusLoss(self.args)
         elif self.args.arch == 'tsrn':
             model = tsrn.TSRN(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height,
                               STN=self.args.STN, mask=self.mask, srb_nums=self.args.srb, hidden_units=self.args.hd_u)
-            image_crit = info_loss.ContentLoss()
-            # image_crit = torch.nn.MSELoss()
+            image_crit = text_focus_loss.TextFocusLoss(self.args)
         elif self.args.arch == 'bicubic' and self.args.test:
             model = bicubic.BICUBIC(scale_factor=self.scale_factor)
-            image_crit = nn.MSELoss()
+            image_crit = text_focus_loss.TextFocusLoss(self.args)
         elif self.args.arch == 'srcnn':
             model = srcnn.SRCNN(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height, STN=self.args.STN)
-            image_crit = info_loss.ContentLoss()
+            image_crit = text_focus_loss.TextFocusLoss(self.args)
         elif self.args.arch == 'vdsr':
             model = vdsr.VDSR(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height, STN=self.args.STN)
             image_crit = nn.MSELoss()
         elif self.args.arch == 'srres':
             model = srresnet.SRResNet(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height,
                                       STN=self.args.STN, mask=self.mask)
-            image_crit = info_loss.ContentLoss()
+            image_crit = text_focus_loss.TextFocusLoss()
         elif self.args.arch == 'esrgan':
             model = esrgan.RRDBNet(scale_factor=self.scale_factor)
             image_crit = nn.L1Loss()
@@ -160,7 +178,7 @@ class TextBase(object):
                 model = torch.nn.DataParallel(model)
                 image_crit = torch.nn.DataParallel(image_crit)
             if self.resume is not '':
-                print('loading pre-trained model from %s ' % self.resume)
+                self.logging.info('loading pre-trained model from %s ' % self.resume)
                 if self.config.TRAIN.ngpu == 1:
                     model.load_state_dict(torch.load(self.resume)['state_dict_G'])
                 else:
@@ -168,7 +186,7 @@ class TextBase(object):
                         {'module.' + k: v for k, v in torch.load(self.resume)['state_dict_G'].items()})
 
         para_num = get_parameter_number(model)
-        print('Total Parameters',para_num)
+        self.logging.info('Total Parameters {}'.format(para_num))
 
         return {'model': model, 'crit': image_crit}
 
@@ -180,7 +198,6 @@ class TextBase(object):
 
     def tripple_display(self, image_in, image_out, image_target, pred_str_lr, pred_str_sr, label_strs, index):
         for i in (range(self.config.TRAIN.VAL.n_vis)):
-            # embed()
             tensor_in = image_in[i][:3,:,:]
             transform = transforms.Compose(
                 [transforms.ToPILImage(),
@@ -235,7 +252,8 @@ class TextBase(object):
         return visualized
 
     def save_checkpoint(self, netG, epoch, iters, best_acc_dict, best_model_info, is_best, converge_list, exp_name):
-        ckpt_path = os.path.join('ckpt', exp_name, self.vis_dir)
+        # ckpt_path = os.path.join('checkpoint', exp_name, self.vis_dir)
+        ckpt_path = os.path.join('checkpoint', exp_name)
         if not os.path.exists(ckpt_path):
             os.mkdir(ckpt_path)
         save_dict = {
@@ -258,7 +276,7 @@ class TextBase(object):
         MORAN = moran.MORAN(1, len(alphabet.split(':')), 256, 32, 100, BidirDecoder=True,
                             inputDataType='torch.cuda.FloatTensor', CUDA=True)
         model_path = self.config.TRAIN.VAL.moran_pretrained
-        print('loading pre-trained moran model from %s' % model_path)
+        self.logging.info('loading pre-trained moran model from %s' % model_path)
         state_dict = torch.load(model_path)
         MORAN_state_dict_rename = OrderedDict()
         for k, v in state_dict.items():
@@ -293,7 +311,7 @@ class TextBase(object):
         cfg = self.config.TRAIN
         aster_info = AsterInfo(cfg.voc_type)
         model_path = self.config.TRAIN.VAL.crnn_pretrained
-        print('loading pretrained crnn model from %s' % model_path)
+        self.logging.info('loading pretrained crnn model from %s' % model_path)
         model.load_state_dict(torch.load(model_path))
         return model, aster_info
 
@@ -312,7 +330,7 @@ class TextBase(object):
                                              sDim=512, attDim=512, max_len_labels=aster_info.max_len,
                                              eos=aster_info.char2id[aster_info.EOS], STN_ON=True)
         aster.load_state_dict(torch.load(self.config.TRAIN.VAL.rec_pretrained)['state_dict'])
-        print('load pred_trained aster model from %s' % self.config.TRAIN.VAL.rec_pretrained)
+        self.logging.info('load pred_trained aster model from %s' % self.config.TRAIN.VAL.rec_pretrained)
         aster = aster.to(self.device)
         aster = torch.nn.DataParallel(aster, device_ids=range(cfg.ngpu))
         return aster, aster_info

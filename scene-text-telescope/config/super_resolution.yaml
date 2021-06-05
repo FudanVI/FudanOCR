@@ -35,8 +35,8 @@ TRAIN:
     n_vis: 10
     vis_dir: 'demo'
     valInterval: 1000
-    rec_pretrained: '.'
-    moran_pretrained: '.'
+    rec_pretrained: 'None'
+    moran_pretrained: 'None'
     crnn_pretrained: './dataset/mydata/crnn.pth'
 
 TEST:

@@ -11,9 +11,6 @@ import warnings
 import math, copy
 warnings.filterwarnings("ignore")
 
-sys.path.append('./')
-sys.path.append('../')
-
 from .tps_spatial_transformer import TPSSpatialTransformer
 from .stn_head import STNHead
 
@@ -133,7 +130,6 @@ class GruBlock(nn.Module):
         super(GruBlock, self).__init__()
         assert out_channels % 2 == 0
         self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=1, padding=0)
-        # 居然还有 batch_first的参数
         self.gru = nn.GRU(out_channels, out_channels // 2, bidirectional=True, batch_first=True)
 
     def forward(self, x):

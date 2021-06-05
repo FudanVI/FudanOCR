@@ -165,6 +165,8 @@ def assureRatio(img):
     return img
 
 
+
+
 if __name__=='__main__':
     converter = strLabelConverter(string.digits+string.ascii_lowercase)
     embed()

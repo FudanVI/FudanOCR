@@ -68,30 +68,6 @@ class CRNN(nn.Module):
             BidirectionalLSTM(nh, nh, nclass))
 
     def forward(self, input):
-        # conv features
-        # print("输入的尺寸为",input.shape)
-
-
-
-
-        # # 转成灰度图
-        # input = input[:,0,:,:] * 0.299 + input[:,1,:,:] * 0.587 + input[:,2,:,:] * 0.114
-        # input = input.unsqueeze(1)
-
-        # 先转为彩色，再转为灰度
-        #input
-        #cv2.cvtColor(img_resize, cv2.COLOR_RGB2GRAY)
-
-        # 保存超分图片
-        if False:
-            input = input.squeeze().unsqueeze(3)
-            global cnt
-            for image in input:
-                image = image.detach().cpu().numpy()
-                cv2.imwrite('/home/cjy/TextZoom/src/image/{0}.jpg'.format(cnt),image)
-                cnt += 1
-
-
         conv = self.cnn(input)
         b, c, h, w = conv.size()
         assert h == 1, "the height of conv must be 1"

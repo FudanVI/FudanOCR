@@ -1,7 +1,6 @@
-import yaml
-import sys
-import argparse
 import os
+import yaml
+import argparse
 from IPython import embed
 from easydict import EasyDict
 from interfaces.super_resolution import TextSR
@@ -19,17 +18,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--arch', default='tsrn', choices=['tbsrn', 'tsrn', 'bicubic', 'srcnn', 'vdsr', 'srres', 'esrgan', 'rdn',
                                                            'edsr', 'lapsrn'])
+    parser.add_argument('--text_focus', action='store_true')
+    parser.add_argument('--exp_name', required=True, help='Type your experiment name')
     parser.add_argument('--test', action='store_true', default=False)
-    parser.add_argument('--test_data_dir', type=str, default='../dataset/lmdb/str/TextZoom/test/medium/', help='')
+    parser.add_argument('--test_data_dir', type=str, default='./dataset/mydata/test/easy')
     parser.add_argument('--batch_size', type=int, default=None, help='')
     parser.add_argument('--resume', type=str, default='', help='')
-    parser.add_argument('--vis_dir', type=str, default=None, help='')
-    parser.add_argument('--rec', default='crnn', choices=['aster, moran, crnn'])
+    parser.add_argument('--rec', default='crnn', choices=['crnn'])
     parser.add_argument('--STN', action='store_true', default=False, help='')
     parser.add_argument('--syn', action='store_true', default=False, help='use synthetic LR')
     parser.add_argument('--mixed', action='store_true', default=False, help='mix synthetic with real LR')
     parser.add_argument('--mask', action='store_true', default=False, help='')
-    parser.add_argument('--gradient', action='store_true', default=False, help='')
     parser.add_argument('--hd_u', type=int, default=32, help='')
     parser.add_argument('--srb', type=int, default=5, help='')
     parser.add_argument('--demo', action='store_true', default=False)
