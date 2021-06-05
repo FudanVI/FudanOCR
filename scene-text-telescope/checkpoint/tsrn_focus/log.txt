@@ -516,3 +516,5 @@
 [09:07:41.057] [2021-06-05 09:07:41]	Epoch: [25][201/542]	total_loss 5.526 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.290 	
 [09:08:12.760] [2021-06-05 09:08:12]	Epoch: [25][251/542]	total_loss 5.153 	mse_loss 0.024 	attention_loss 0.003 	recognition_loss 0.279 	
 [09:08:44.179] [2021-06-05 09:08:44]	Epoch: [25][301/542]	total_loss 5.268 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.336 	
+[09:09:15.407] [2021-06-05 09:09:15]	Epoch: [25][351/542]	total_loss 5.398 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.273 	
+[09:09:45.818] [2021-06-05 09:09:45]	Epoch: [25][401/542]	total_loss 5.568 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.444 	

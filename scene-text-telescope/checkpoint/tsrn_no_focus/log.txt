@@ -1698,3 +1698,10 @@
 [09:09:12.886] save display images
 [09:09:12.886] sr_accuray: 29.86%
 [09:09:12.888] best_hard = 31.12%
+[09:09:21.367] [2021-06-05 09:09:21]	Epoch: [84][523/542]	total_loss 1.857 	mse_loss 0.019 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:09:30.328] [2021-06-05 09:09:30]	Epoch: [85][31/542]	total_loss 1.685 	mse_loss 0.017 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:09:38.348] [2021-06-05 09:09:38]	Epoch: [85][81/542]	total_loss 1.821 	mse_loss 0.018 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:09:46.522] [2021-06-05 09:09:46]	Epoch: [85][131/542]	total_loss 1.695 	mse_loss 0.017 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:09:54.778] [2021-06-05 09:09:54]	Epoch: [85][181/542]	total_loss 1.929 	mse_loss 0.019 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:10:02.819] [2021-06-05 09:10:02]	Epoch: [85][231/542]	total_loss 1.704 	mse_loss 0.017 	attention_loss -1.000 	recognition_loss -1.000 	
+[09:10:10.958] [2021-06-05 09:10:10]	Epoch: [85][281/542]	total_loss 2.231 	mse_loss 0.022 	attention_loss -1.000 	recognition_loss -1.000 	
