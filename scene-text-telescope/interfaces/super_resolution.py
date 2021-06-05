@@ -158,17 +158,17 @@ class TextSR(base.TextBase):
         return predict_result
 
 
-    def eval(self, model, val_loader, image_crit, index, aster, aster_info, mode):
+    def eval(self, model, val_loader, image_crit, index, recognizer, aster_info, mode):
         global easy_test_times
         global medium_test_times
         global hard_test_times
 
         for p in model.parameters():
             p.requires_grad = False
-        for p in aster.parameters():
+        for p in recognizer.parameters():
             p.requires_grad = False
         model.eval()
-        aster.eval()
+        recognizer.eval()
         n_correct = 0
         n_correct_lr = 0
         sum_images = 0
@@ -191,13 +191,21 @@ class TextSR(base.TextBase):
             metric_dict['psnr'].append(self.cal_psnr(images_sr, images_hr))
             metric_dict['ssim'].append(self.cal_ssim(images_sr, images_hr))
 
-            aster_dict_sr = self.parse_crnn_data(images_sr[:, :3, :, :])
-
-            aster_output_sr = aster(aster_dict_sr)
-            outputs_sr = aster_output_sr.permute(1, 0, 2).contiguous()
+            recognizer_dict_sr = self.parse_crnn_data(images_sr[:, :3, :, :])
+            recognizer_output_sr = recognizer(recognizer_dict_sr)
+            outputs_sr = recognizer_output_sr.permute(1, 0, 2).contiguous()
             predict_result_sr = self.get_crnn_pred(outputs_sr)
             metric_dict['images_and_labels'].append(
                 (images_hr.detach().cpu(), images_sr.detach().cpu(), label_strs, predict_result_sr))
+
+            cnt = 0
+            for pred, target in zip(predict_result_sr, label_strs):
+                # self.logging.info('{} | {} | {} | {}\n'.format(write_line, pred, str_filt(target, 'lower'),
+                #                                      pred == str_filt(target, 'lower')))
+                # write_line += 1
+                if pred == str_filt(target, 'lower'):
+                    n_correct += 1
+                cnt += 1
 
             sum_images += val_batch_size
             torch.cuda.empty_cache()
