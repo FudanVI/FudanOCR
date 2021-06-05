@@ -178,7 +178,7 @@ def test(epoch):
 if __name__ == '__main__':
 
     if config['test_only']:
-        test()
+        test(-1)
 
     for epoch in range(config['epoch']):
         torch.save(model.state_dict(), './history/{}/model.pth'.format(config['exp_name']))

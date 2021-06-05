@@ -236,9 +236,9 @@ def is_correct(epoch, model, mode, probe_feature, pred, gt, word_label, clean_ca
         else:
             if confusing_feature_stroke is None:
                 confusing_dict1, gallery_combine1 = get_support_sample_feature_stroke(model,
-                                                                                         './data/print_font_templaet/simsun.pkl')
+                                                                                         './data/print_font_template/simsun.pkl')
                 confusing_dict2, gallery_combine2 = get_support_sample_feature_stroke(model,
-                                                                                         './data/print_font_templaet/simfang.pkl')
+                                                                                         './data/print_font_template/simfang.pkl')
                 confusing_feature_stroke = []
                 confusing_feature_stroke.append((confusing_dict1, gallery_combine1))
                 confusing_feature_stroke.append((confusing_dict2, gallery_combine2))
