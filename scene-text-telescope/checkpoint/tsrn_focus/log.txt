@@ -255,3 +255,43 @@
 [07:51:18.617] [2021-06-05 07:51:18]	Epoch: [12][97/542]	total_loss 5.907 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.597 	
 [07:51:49.638] [2021-06-05 07:51:49]	Epoch: [12][147/542]	total_loss 6.099 	mse_loss 0.030 	attention_loss 0.003 	recognition_loss 0.558 	
 [07:52:20.336] [2021-06-05 07:52:20]	Epoch: [12][197/542]	total_loss 5.593 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.310 	
+[07:52:51.798] [2021-06-05 07:52:51]	Epoch: [12][247/542]	total_loss 6.249 	mse_loss 0.030 	attention_loss 0.003 	recognition_loss 0.359 	
+[07:53:23.144] [2021-06-05 07:53:23]	Epoch: [12][297/542]	total_loss 5.060 	mse_loss 0.023 	attention_loss 0.003 	recognition_loss 0.360 	
+[07:53:54.470] [2021-06-05 07:53:54]	Epoch: [12][347/542]	total_loss 6.114 	mse_loss 0.029 	attention_loss 0.003 	recognition_loss 0.566 	
+[07:54:25.105] [2021-06-05 07:54:25]	Epoch: [12][397/542]	total_loss 5.954 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.226 	
+[07:54:55.673] [2021-06-05 07:54:55]	Epoch: [12][447/542]	total_loss 5.994 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.555 	
+[07:55:25.937] [2021-06-05 07:55:25]	Epoch: [12][497/542]	total_loss 6.605 	mse_loss 0.032 	attention_loss 0.003 	recognition_loss 0.205 	
+[07:55:25.937] ======================================================
+[07:55:25.938] evaling easy
+[07:55:33.658] [2021-06-05 07:55:33]	loss_rec 0.000| loss_im 0.000	PSNR 22.65 | SSIM 0.8163	
+[07:55:33.658] save display images
+[07:55:33.658] sr_accuray: 49.54%
+[07:55:33.659] best_easy = 49.85%
+[07:55:33.659] evaling medium
+[07:55:40.232] [2021-06-05 07:55:40]	loss_rec 0.000| loss_im 0.000	PSNR 19.26 | SSIM 0.6240	
+[07:55:40.232] save display images
+[07:55:40.232] sr_accuray: 36.85%
+[07:55:40.235] best_medium = 36.85%*
+[07:55:40.235] evaling hard
+[07:55:46.844] [2021-06-05 07:55:46]	loss_rec 0.000| loss_im 0.000	PSNR 19.82 | SSIM 0.6820	
+[07:55:46.844] save display images
+[07:55:46.844] sr_accuray: 28.07%
+[07:55:46.845] best_hard = 28.07%
+[07:55:46.846] saving best model
+[07:56:18.342] [2021-06-05 07:56:18]	Epoch: [13][5/542]	total_loss 6.082 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.429 	
+[07:56:48.289] [2021-06-05 07:56:48]	Epoch: [13][55/542]	total_loss 5.730 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.483 	
+[07:57:18.425] [2021-06-05 07:57:18]	Epoch: [13][105/542]	total_loss 5.662 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.261 	
+[07:57:49.534] [2021-06-05 07:57:49]	Epoch: [13][155/542]	total_loss 5.845 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.377 	
+[07:58:21.059] [2021-06-05 07:58:21]	Epoch: [13][205/542]	total_loss 5.793 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.428 	
+[07:58:52.773] [2021-06-05 07:58:52]	Epoch: [13][255/542]	total_loss 5.251 	mse_loss 0.023 	attention_loss 0.003 	recognition_loss 0.158 	
+[07:59:24.477] [2021-06-05 07:59:24]	Epoch: [13][305/542]	total_loss 5.476 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.275 	
+[07:59:55.563] [2021-06-05 07:59:55]	Epoch: [13][355/542]	total_loss 6.923 	mse_loss 0.037 	attention_loss 0.003 	recognition_loss 0.396 	
+[08:00:27.035] [2021-06-05 08:00:27]	Epoch: [13][405/542]	total_loss 6.053 	mse_loss 0.029 	attention_loss 0.003 	recognition_loss 0.548 	
+[08:00:58.149] [2021-06-05 08:00:58]	Epoch: [13][455/542]	total_loss 6.738 	mse_loss 0.029 	attention_loss 0.004 	recognition_loss 0.940 	
+[08:01:28.980] [2021-06-05 08:01:28]	Epoch: [13][505/542]	total_loss 6.018 	mse_loss 0.028 	attention_loss 0.003 	recognition_loss 0.332 	
+[08:01:59.989] [2021-06-05 08:01:59]	Epoch: [14][13/542]	total_loss 5.707 	mse_loss 0.025 	attention_loss 0.003 	recognition_loss 0.491 	
+[08:02:30.138] [2021-06-05 08:02:30]	Epoch: [14][63/542]	total_loss 5.686 	mse_loss 0.026 	attention_loss 0.003 	recognition_loss 0.447 	
+[08:03:00.634] [2021-06-05 08:03:00]	Epoch: [14][113/542]	total_loss 5.791 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.576 	
+[08:03:30.940] [2021-06-05 08:03:30]	Epoch: [14][163/542]	total_loss 5.712 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.275 	
+[08:04:01.507] [2021-06-05 08:04:01]	Epoch: [14][213/542]	total_loss 5.982 	mse_loss 0.027 	attention_loss 0.003 	recognition_loss 0.596 	
+[08:04:32.200] [2021-06-05 08:04:32]	Epoch: [14][263/542]	total_loss 6.771 	mse_loss 0.031 	attention_loss 0.004 	recognition_loss 0.622 	
