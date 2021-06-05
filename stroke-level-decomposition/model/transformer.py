@@ -1,23 +1,19 @@
-import torchvision
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.nn.init as init
-import math, copy
-import numpy as np
 import time
+import math
+import copy
+import torch
+import numpy as np
+import torchvision
+import torch.nn as nn
+import torch.nn.init as init
+import torch.nn.functional as F
 from torch.autograd import Variable
-
 import torchvision.models as models
 
 from config import config
-
 from util import get_alphabet
+
 alphabet = get_alphabet(config['mode'])
-
-
-def getWordAlphabetLen():
-    return len(alphabet)
 
 
 class Bottleneck(nn.Module):
@@ -68,7 +64,6 @@ class BasicBlock(nn.Module):
 
         out = self.conv2(out)
         out = self.bn2(out)
-        # out = self.se(out)
 
         if self.downsample != None:
             residual = self.downsample(residual)
@@ -344,7 +339,7 @@ class Transformer(nn.Module):
     def forward(self, image, text_length, text_input, conv_feature=None, test=False):
 
         if conv_feature is None:
-            conv_feature = self.encoder(image) 
+            conv_feature = self.encoder(image)
 
         if text_length is None:
             return {
