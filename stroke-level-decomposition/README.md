@@ -14,9 +14,19 @@ pip install -r requirement.txt
 ## Dataset
 Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1P_SCcQG74fiQfTnfidpHEw) with password: stt6, or [Dropbox](https://www.dropbox.com/sh/f294n405ngbnujn/AABUO6rv_5H5MvIvCblcf-aKa?dl=0)
 
-* TextZoom dataset
-* Pretrained weights of CRNN 
-* Pretrained weights of Transformer-based recognizer
+Dataset for seen settign:
+* HWDB1.0 handwritten dataset 
+* HWDB1.1 handwritten dataset 
+* ICDAR2013 handwritten dataset
+* CTW scene character dataset
+
+Dataset for zero-shot experiments:
+* Handwritten dataset in **Character Zero-Shot** Setting
+* Handwritten dataset in **Radical Zero-Shot** Setting
+* Printed artistic dataset  in **Character Zero-Shot** Setting
+* Printed artistic dataset in **Radical Zero-Shot** Setting
+* CTW scene character dataset  in **Character Zero-Shot** Setting
+* CTW scene character dataset in **Radical Zero-Shot** Setting
 
 All the resources shoulded be placed under ```./dataset/mydata```, for example
 ```python

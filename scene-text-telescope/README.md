@@ -2,9 +2,7 @@
 
 This is the code for CVPR2021 paper "Scene Text Telescope: Text-Focused Scene Image Super-Resolution". [[link]](https://github.com/FudanVI/FudanOCR/tree/main/scene-text-telescope/document)
 
-![architecture](./image/architecture.png){:height="50%" width="50%"}
-
-![result](./image/result_example.jpg){:height="50%" width="50%"}
+![architecture](./image/architecture.png)
 
 
 ## Dependencies
