@@ -1,8 +1,0 @@
-[06:16:01.040] Namespace(STN=True, arch='tsrn', batch_size=32, demo=True, demo_dir='./demo', exp_name='test_demo', hd_u=32, mask=False, mixed=False, rec='crnn', resume='', srb=5, syn=False, test=False, test_data_dir='./dataset/mydata/test/easy', text_focus=False)
-[06:16:02.928] Total Parameters 2671020
-[06:16:03.003] loading pretrained crnn model from ./dataset/mydata/crnn.pth
-[06:16:03.320] this ===> iatin
-[06:16:03.390] fooh ===> tai
-[06:16:03.442] in ===> iatin
-[06:16:03.502] staff ===> iatin
-[06:16:03.505] fps=9.438945543212002
