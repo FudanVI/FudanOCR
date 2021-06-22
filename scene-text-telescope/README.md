@@ -27,10 +27,20 @@ All the resources shoulded be placed under ```./dataset/mydata```, for example
 ```
 
 
-## Experiment
+## Training
 Please remember to modify the experiment name. Two text-focused modules are activated whenever ```--text_focus``` is used
 ```python
 CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_name EXP_NAME --text_focus
+```
+
+## Testing
+```python
+CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_name EXP_NAME --text_focus --test --test_data_dir ./dataset/mydata/test
+```
+
+## Demo
+```python
+CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_name EXP_NAME --text_focus --demo --demo_dir ./demo
 ```
 
 ## Acknowledgement
@@ -40,8 +50,6 @@ Thanks for your contribution!
 [@JasonBoy1](https://github.com/JasonBoy1) 
 
  [@meijieru](https://github.com/meijieru)
-
-
 
 
 ## Citation
