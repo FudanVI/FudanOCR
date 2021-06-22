@@ -64,7 +64,8 @@ class TextBase(object):
         alphabet_moran = ':'.join(string.digits+string.ascii_lowercase+'$')
         self.converter_moran = utils_moran.strLabelConverterForAttention(alphabet_moran, ':')
         self.converter_crnn = utils_crnn.strLabelConverter(string.digits + string.ascii_lowercase)
-        self.clean_old_ckpt()
+        if not args.test:
+            self.clean_old_ckpt()
         self.logging = logging
         self.make_logger()
         self.make_writer()
