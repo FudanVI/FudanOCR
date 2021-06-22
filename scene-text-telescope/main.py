@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('--text_focus', action='store_true')
     parser.add_argument('--exp_name', required=True, help='Type your experiment name')
     parser.add_argument('--test', action='store_true', default=False)
-    parser.add_argument('--test_data_dir', type=str, default='./dataset/mydata/test/easy')
+    parser.add_argument('--test_data_dir', type=str, default='./dataset/mydata/test')
     parser.add_argument('--batch_size', type=int, default=None, help='')
     parser.add_argument('--resume', type=str, default='', help='')
     parser.add_argument('--rec', default='crnn', choices=['crnn'])
