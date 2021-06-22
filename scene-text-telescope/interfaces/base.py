@@ -177,7 +177,7 @@ class TextBase(object):
             image_crit.to(self.device)
             if cfg.ngpu > 1:
                 model = torch.nn.DataParallel(model)
-                image_crit = torch.nn.DataParallel(image_crit)
+                # image_crit = torch.nn.DataParallel(image_crit)
             if self.resume is not '':
                 self.logging.info('loading pre-trained model from %s ' % self.resume)
                 if self.config.TRAIN.ngpu == 1:
