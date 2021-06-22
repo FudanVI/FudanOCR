@@ -35,7 +35,7 @@ CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_n
 
 ## Testing
 ```python
-CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_name EXP_NAME --text_focus --test --test_data_dir ./dataset/mydata/test
+CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=32 --STN --mask --exp_name EXP_NAME --text_focus --resume YOUR_MODEL --test --test_data_dir ./dataset/mydata/test
 ```
 
 ## Demo
