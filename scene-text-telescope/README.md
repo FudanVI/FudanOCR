@@ -1,6 +1,6 @@
 # Scene Text Telescope
 
-This is the code for CVPR2021 paper "Scene Text Telescope: Text-Focused Scene Image Super-Resolution". [[link]](https://github.com/FudanVI/FudanOCR/tree/main/scene-text-telescope/document)
+This is the code for CVPR2021 paper "Scene Text Telescope: Text-Focused Scene Image Super-Resolution". [[link]](https://openaccess.thecvf.com/content/CVPR2021/html/Chen_Scene_Text_Telescope_Text-Focused_Scene_Image_Super-Resolution_CVPR_2021_paper.html)
 
 ![architecture](./image/architecture.png)
 
