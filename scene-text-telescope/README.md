@@ -46,10 +46,11 @@ Thanks for your contribution!
 
 ## Citation
 ```python
-@inproceedings{not available now,
+@inproceedings{chen2021scene,
   title={Scene Text Telescope: Text-Focused Scene Image Super-Resolution},
-  author={Jingye Chen and Bin Li and Xiangyang Xue},
-  booktitle={CVPR},
-  year={2021},
+  author={Chen, Jingye and Li, Bin and Xue, Xiangyang},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={12026--12035},
+  year={2021}
 }
 ```
