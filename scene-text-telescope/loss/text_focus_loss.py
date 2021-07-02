@@ -94,7 +94,7 @@ class TextFocusLoss(nn.Module):
                                                                             input_tensor, test=False)
             attention_loss = self.l1_loss(word_attention_map_gt, word_attention_map_pred)
             # recognition_loss = self.l1_loss(hr_pred, sr_pred)
-            recognition_loss = weight_cross_entropy(hr_pred, text_gt)
+            recognition_loss = weight_cross_entropy(sr_pred, text_gt)
             loss = mse_loss + attention_loss * 10 + recognition_loss * 0.0005
             return loss, mse_loss, attention_loss, recognition_loss
         else:
