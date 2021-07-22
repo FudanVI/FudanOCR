@@ -31,7 +31,7 @@ CUDA_VISIBLE_DEVICES=GPU_NUM python train.py
 
 ## Citation
 ```python
-@inproceedings{not available now,
+@inproceedings{chen2021zero,
   title={Zero-Shot Chinese Character Recognition with Stroke-Level Decomposition},
   author={Jingye Chen and Bin Li and Xiangyang Xue},
   booktitle={IJCAI},
