@@ -11,6 +11,12 @@ Build up an environment with python3.6, and download corresponding libraries wit
 pip install -r requirement.txt
 ```
 
+## Pre-trained Model
+Here are some outputs with backbone **TBSRN** while text-focused
+
+[[Model]](https://drive.google.com/file/d/13SH_wy1QRQoWWHxI8lF0VqtZYTXBhhKy/view?usp=sharing) [[Log]](https://drive.google.com/file/d/19M5twD_cUAq88YuENPpR_7hIvLULb6mF/view?usp=sharing)
+
+
 ## Dataset
 Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1P_SCcQG74fiQfTnfidpHEw) with password: stt6, or [Dropbox](https://www.dropbox.com/sh/f294n405ngbnujn/AABUO6rv_5H5MvIvCblcf-aKa?dl=0)
 
