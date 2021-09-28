@@ -333,7 +333,7 @@ class TextSR(base.TextBase):
 
         def transform_(path):
             img = Image.open(path)
-            img = img.resize((256, 32), Image.BICUBIC)
+            img = img.resize((64, 16), Image.BICUBIC)
             img_tensor = transforms.ToTensor()(img)
             if mask_:
                 mask = img.convert('L')
