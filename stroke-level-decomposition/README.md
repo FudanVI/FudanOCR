@@ -14,6 +14,7 @@ pip install -r requirement.txt
 ## Dataset
 * HWDB dataset can be accessed in [link](http://www.nlpr.ia.ac.cn/databases/handwriting/Home.html)
 * CTW dataset can be accessed in [link](https://ctwdataset.github.io/)
+* Printed Artistic dataset can be accessed in [link](https://pan.baidu.com/s/1idbLAliUpsgB_IyuDS8EXg) (psw:sqhq)
 
 All the resources shoulded be placed under ```./dataset/mydata```
 
