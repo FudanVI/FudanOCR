@@ -1,0 +1,51 @@
+MODEL:
+
+TRAIN:
+  train_data_dir: [
+    './dataset/mydata/train1',
+    './dataset/mydata/train2',
+  ]
+  batch_size: 512
+  width: 128
+  height: 32
+  epochs: 50000
+  cuda: True
+  ngpu: 4
+  workers: 8
+  resume: ''
+  ckpt_dir: './ckpt/'
+  voc_type: 'all'
+  saveInterval: 200
+  displayInterval: 50
+  adadelta: False
+  lr: 0.0001
+  adam: True
+  beta1: 0.5
+  manualSeed: 1234
+  max_len: 100
+  keep_ratio: False
+  down_sample_scale: 2
+
+  VAL:
+    val_data_dir: [
+      './dataset/mydata/test/easy',
+      './dataset/mydata/test/medium',
+      './dataset/mydata/test/hard',
+    #   '/home/db/FudanOCR/scene-text-telescope/dataset/mydata/ICDAR2015/preprocessor_test/ic15_352_textzoom_format_lmdb'
+    ]
+    n_vis: 10
+    vis_dir: 'demo'
+    valInterval: 1000
+    rec_pretrained: 'None'
+    moran_pretrained: 'None'
+    crnn_pretrained: './dataset/mydata/crnn.pth'
+
+TEST:
+  checkpoint: ''
+  test_data_dir: [
+  ]
+
+CONVERT:
+  image_dir:
+  lmdb_dir:
+  n_convert: 10
