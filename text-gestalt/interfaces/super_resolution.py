@@ -237,14 +237,6 @@ class TextSR(base.TextBase):
 
     def test(self):
 
-        if self.args.segmask:
-            # 导入分割模型
-            sys.path.append('/home/db/IJCAI2022')
-            from getMask.unet.unet_model import UNet
-            self.segmenter = UNet(1, 2, True).cuda()
-            self.segmenter.load_state_dict(torch.load('/home/db/IJCAI2022/getMask/checkpoint/best_model.pth'))
-            self.segmenter.eval()
-
         model_dict = self.generator_init()
         model, image_crit = model_dict['model'], model_dict['crit']
         items = os.listdir(self.test_data_dir)
@@ -333,23 +325,6 @@ class TextSR(base.TextBase):
                                                                                index + sum_images))
                         hr_pil.save('checkpoint/{}/images/{}_{}_hr.jpg'.format(self.args.exp_name, test_dir,
                                                                                index + sum_images))
-
-                        # 生成mask
-                        if self.args.segmask:
-                            lr_gray = self.to_gray_tensor(images_lr[index].unsqueeze(0))
-                            sr_gray = self.to_gray_tensor(images_sr[index].unsqueeze(0))
-                            hr_gray = self.to_gray_tensor(images_hr[index].unsqueeze(0))
-
-                            lr_mask = self.get_mask(lr_gray)
-                            sr_mask = self.get_mask(sr_gray)
-                            hr_mask = self.get_mask(hr_gray)
-                            lr_mask.save('checkpoint/{}/images/{}_{}_lr_mask.png'.format(self.args.exp_name, test_dir,
-                                                                                   index + sum_images))
-                            sr_mask.save('checkpoint/{}/images/{}_{}_sr_mask.png'.format(self.args.exp_name, test_dir,
-                                                                                   index + sum_images))
-                            hr_mask.save('checkpoint/{}/images/{}_{}_hr_mask.png'.format(self.args.exp_name, test_dir,
-                                                                                   index + sum_images))
-                            # exit(0)
                         text_label_file.write(
                             'checkpoint/{}/images/{}_{}_sr.jpg {} {}\n'.format(self.args.exp_name, test_dir,
                                                                             index + sum_images, label_strs[index], pred_str_sr[index]))
