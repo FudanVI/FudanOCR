@@ -28,7 +28,6 @@ All the resources shoulded be placed under ```./dataset/mydata```, for example
 ./dataset/mydata/english_decomposition.txt
 ./dataset/mydata/crnn.pth
 ./dataset/mydata/pretrain_transformer_stroke_decomposition.pth
-...
 ```
 
 
