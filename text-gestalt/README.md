@@ -5,7 +5,7 @@ This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image
 ![architecture](./image/architecture.png)
 
 ## TODO List
-* [ ] Publish pre-trained weights and logs
+* [x] Publish pre-trained weights and logs
 * [ ] Make this paper publicly available
 
 ## Dependencies
@@ -14,8 +14,8 @@ Build up an environment with python3.6, and download corresponding libraries wit
 pip install -r requirement.txt
 ```
 
-## Pre-trained Model
-Will be available soon
+## Pre-trained Weights and Logs
+Download the pre-trained weights and logs at [BaiduYunDisk](https://pan.baidu.com/s/1c0DqmKkw5_uB6njPhmm-2g) with password: vqg7
 
 ## Dataset
 Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1MeFKnF5tWiL7ts00SHLM2A) with password: mteb
