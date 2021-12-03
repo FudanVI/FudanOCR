@@ -21,7 +21,7 @@ from torch.utils.tensorboard import SummaryWriter
 from loss import stroke_focus_loss
 from model import tbsrn, tsrn, edsr, srcnn, srresnet, crnn, esrgan
 import dataset.dataset as dataset
-from dataset import lmdbDataset, alignCollate_real, ConcatDataset, lmdbDataset_real, alignCollate_syn, lmdbDataset_mix
+from dataset.dataset import lmdbDataset, alignCollate_real, ConcatDataset, lmdbDataset_real, alignCollate_syn, lmdbDataset_mix
 from utils import util, ssim_psnr, utils_moran, utils_crnn
 from utils.labelmaps import get_vocabulary, labels2strs
 
@@ -78,18 +78,10 @@ class TextBase(object):
         else:
             test_str = ''
 
-        if self.args.text_focus and self.args.focus_level == 'character':
-            focus_lambda = str(self.args.character_lambda)
-        elif self.args.text_focus and self.args.focus_level == 'stroke':
-            focus_lambda = str(self.args.stroke_lambda)
-        elif self.args.text_focus and self.args.focus_level == 'character_stroke':
-            focus_lambda = str(self.args.stroke_lambda)
-        elif self.args.text_focus and self.args.focus_level == 'character_count':
-            focus_lambda = str(self.args.character_lambda)
-
+        focus_lambda = str(self.args.stroke_lambda)
         if self.args.exp_name == '':
             if self.args.text_focus:
-                self.args.exp_name = f'{test_str}{self.args.arch}_{self.args.focus_level}_{focus_lambda}_{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}'
+                self.args.exp_name = f'{test_str}{self.args.arch}_{focus_lambda}_{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}'
             else:
                 self.args.exp_name = f'{test_str}{self.args.arch}_None_{time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}'
 
@@ -105,6 +97,10 @@ class TextBase(object):
 
     def clean_old_ckpt(self):
         if os.path.exists('checkpoint/{}'.format(self.args.exp_name)):
+            answer = input(f'A checkpoint file of the same exp_name [{self.args.exp_name}] exists! Overwrite it? [y/n]')
+            if answer.strip() != 'y':
+                print('Please modify the exp_name.')
+                exit(0)
             shutil.rmtree('checkpoint/{}'.format(self.args.exp_name))
             print(f'Clean the old checkpoint {self.args.exp_name}')
         os.mkdir('checkpoint/{}'.format(self.args.exp_name))
