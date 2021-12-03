@@ -1,9 +1,12 @@
 # Text Gestalt
 
-This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution". [[link]](In preparation for the camera ready version...)
+This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution". *(In preparation for the camera ready version...)*
 
 ![architecture](./image/architecture.png)
 
+## TODO List
+* [ ] Publish pre-trained weights and logs
+* [ ] Make this paper publicly available
 
 ## Dependencies
 Build up an environment with python3.6, and download corresponding libraries with pip
@@ -15,17 +18,16 @@ pip install -r requirement.txt
 Will be available soon
 
 ## Dataset
-Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1P_SCcQG74fiQfTnfidpHEw) with password: stt6, or [Dropbox](https://www.dropbox.com/sh/f294n405ngbnujn/AABUO6rv_5H5MvIvCblcf-aKa?dl=0)
-
-* TextZoom dataset
-* Pretrained weights of CRNN 
-* Pretrained weights of Stroke-based Transformer-based recognizer
+Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1MeFKnF5tWiL7ts00SHLM2A) with password: mteb
 
 All the resources shoulded be placed under ```./dataset/mydata```, for example
 ```python
 ./dataset/mydata/train1
 ./dataset/mydata/train2
-./dataset/mydata/pretrain_transformer.pth
+./dataset/mydata/test
+./dataset/mydata/english_decomposition.txt
+./dataset/mydata/crnn.pth
+./dataset/mydata/pretrain_transformer_stroke_decomposition.pth
 ...
 ```
 
@@ -33,7 +35,7 @@ All the resources shoulded be placed under ```./dataset/mydata```, for example
 ## Training
 Please remember to modify the experiment name. Two text-focused modules are activated whenever ```--text_focus``` is used
 ```python
-CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=16 --STN --exp_name EXP_NAME --text_focus
+CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=16 --STN --exp_name EXP_NAME --text_focus 
 ```
 
 ## Testing
@@ -51,4 +53,4 @@ Thanks for your contribution!
 
 
 ## Citation
-We will update the code to arXiv soon.
+Will be available soon

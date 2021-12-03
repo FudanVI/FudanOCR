@@ -18,6 +18,7 @@ from torch.autograd import Variable
 from collections import OrderedDict
 from torch.utils.tensorboard import SummaryWriter
 
+from loss import stroke_focus_loss
 from model import tbsrn, tsrn, edsr, srcnn, srresnet, crnn, esrgan
 import dataset.dataset as dataset
 from dataset import lmdbDataset, alignCollate_real, ConcatDataset, lmdbDataset_real, alignCollate_syn, lmdbDataset_mix
@@ -162,16 +163,7 @@ class TextBase(object):
 
     def generator_init(self):
         cfg = self.config.TRAIN
-
-        if self.args.focus_level == 'character':
-            from loss import character_focus_loss
-            image_crit = character_focus_loss.CharacterFocusLoss(self.args)
-        elif self.args.focus_level == 'stroke':
-            from loss import stroke_focus_loss
-            image_crit = stroke_focus_loss.StrokeFocusLoss(self.args)
-        elif self.args.focus_level == 'character_stroke':
-            from loss import stroke_and_character_focus_loss
-            image_crit = stroke_and_character_focus_loss.StrokeCharacterFocusLoss(self.args)
+        image_crit = stroke_focus_loss.StrokeFocusLoss(self.args)
 
         if self.args.arch == 'tbsrn':
             model = tbsrn.TBSRN(scale_factor=self.scale_factor, width=cfg.width, height=cfg.height,

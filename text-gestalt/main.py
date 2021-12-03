@@ -19,7 +19,6 @@ if __name__ == '__main__':
     parser.add_argument('--arch', default='tsrn', choices=['tbsrn', 'tsrn', 'bicubic', 'srcnn', 'vdsr', 'srres', 'esrgan', 'rdn',
                                                            'edsr', 'lapsrn'])
     parser.add_argument('--text_focus', action='store_true')
-    parser.add_argument('--focus_level', choices=['stroke','none'], default='none')
     parser.add_argument('--stroke_lambda', type=float, default=50)
     parser.add_argument('--exp_name', default='', help='Type your experiment name')
     parser.add_argument('--test', action='store_true', default=False)
