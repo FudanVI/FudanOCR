@@ -1,12 +1,13 @@
 # Text Gestalt
 
-This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution". *(In preparation for the camera ready version...)*
+This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution". The paper is available at [link](https://arxiv.org/pdf/2112.08171.pdf).
 
 ![architecture](./image/architecture.png)
 
 ## TODO List
 * [x] Publish pre-trained weights and logs
-* [ ] Make this paper publicly available
+* [x] Make this paper publicly available
+* [ ] Upload more datasets and stroke-level decomposition rules 
 
 ## Dependencies
 Build up an environment with python3.6, and download corresponding libraries with pip
