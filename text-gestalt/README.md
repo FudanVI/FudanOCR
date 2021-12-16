@@ -7,8 +7,9 @@ This is the code for AAAI2022 paper "Text Gestalt: Stroke-Aware Scene Text Image
 ## TODO List
 * [x] Publish pre-trained weights and logs
 * [x] Make this paper publicly available
-* [ ] Upload more datasets and stroke-level decomposition rules 
-
+* [ ] Upload more datasets and stroke-level decomposition rules
+* [ ] Upload the setups of more recognizers like ASTER, NRTR, etc.
+ 
 ## Dependencies
 Build up an environment with python3.6, and download corresponding libraries with pip
 ```python
