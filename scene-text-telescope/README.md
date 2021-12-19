@@ -14,7 +14,7 @@ pip install -r requirement.txt
 ## Pre-trained Model
 Here are some outputs with backbone **TBSRN** while text-focused
 
-[[Model]](https://drive.google.com/file/d/13SH_wy1QRQoWWHxI8lF0VqtZYTXBhhKy/view?usp=sharing) [[Log]](https://drive.google.com/file/d/19M5twD_cUAq88YuENPpR_7hIvLULb6mF/view?usp=sharing)
+[[Model]](https://drive.google.com/file/d/1a-BNCC1pFczz4AkY8sJatg3GpeX1MCCr/view?usp=sharing) [[Log]](https://drive.google.com/file/d/19M5twD_cUAq88YuENPpR_7hIvLULb6mF/view?usp=sharing)
 
 
 ## Dataset
