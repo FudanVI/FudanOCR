@@ -20,7 +20,9 @@ pip install -r requirement.txt
 Download the pre-trained weights and logs at [BaiduYunDisk](https://pan.baidu.com/s/1c0DqmKkw5_uB6njPhmm-2g) with password: vqg7
 
 ## Dataset
-Download all resources at [BaiduYunDisk](https://pan.baidu.com/s/1MeFKnF5tWiL7ts00SHLM2A) with password: mteb
+Download all resources at:
+    [BaiduYunDisk](https://pan.baidu.com/s/1MeFKnF5tWiL7ts00SHLM2A) with password: mteb
+    [GoogleDrive](https://drive.google.com/file/d/1hoeKzZ5cf0IghZ5dptNmYvJYcnVLoSQ5/view?usp=sharing)
 
 All the resources shoulded be placed under ```./dataset/mydata```, for example
 ```python
