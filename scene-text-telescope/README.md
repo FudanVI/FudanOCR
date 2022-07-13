@@ -46,7 +46,7 @@ CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=16 --STN --exp_name EXP
 
 ## Demo
 ```python
-CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=16 --STN --exp_name EXP_NAME --text_focus --demo --demo_dir ./demo
+CUDA_VISIBLE_DEVICES=GPU_NUM python main.py --batch_size=16 --STN --exp_name EXP_NAME --text_focus --resume YOUR_MODEL --demo --demo_dir ./demo
 ```
 
 ## Acknowledgement
