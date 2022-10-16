@@ -1,13 +1,13 @@
 # Chinese Character Recognition with Augmented Character
 
-This is the code for our ACMMM2022 paper "Chinese Character Recognition with Augmented Character
+This is the code of the ACMMM2022 paper "Chinese Character Recognition with Augmented Character
 Profile Matching". [[link]](https://github.com/FudanVI/FudanOCR/tree/main/character-profile-matching/paper)
 
 ![architecture](./architecture.png)
 
 
 ## Dependencies
-Build up an environment with python3.7, and download corresponding dependent packages
+Build up an environment with python3.7, and install corresponding dependent packages
 ```python
 pip install -r requirement.txt
 ```
