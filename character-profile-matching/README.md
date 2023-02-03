@@ -39,4 +39,12 @@ We implement our model following the radical-level CCR baseline of [chen et al.]
 Thanks for the contribution!
 
 ## Citation
-
+```python
+@inproceedings{zu2022chinese,
+  title={Chinese Character Recognition with Augmented Character Profile Matching},
+  author={Zu, Xinyan and Yu, Haiyang and Li, Bin and Xue, Xiangyang},
+  booktitle={Proceedings of the 30th ACM International Conference on Multimedia},
+  pages={6094--6102},
+  year={2022}
+}
+```
