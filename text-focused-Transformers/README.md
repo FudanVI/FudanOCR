@@ -16,7 +16,7 @@ Use the following command for training/evaluation.
 NCCL_P2P_DISABLE=1 CUDA_VISIBLE_DEVICES=GPU_NUMS python -m torch.distributed.launch --nproc_per_node=N --nnodes 1 --master_port='***' tools/train.py config_path --work-dir work_path --launcher pytorch --load-from pretrained_model
 
 # evaluation
-CUDA_VISIBLE_DEVICES=GPU_NUM python tools/test.py /home/yuhaiyang/mmsegmentation/configs/textformer/textformer-cascade-mit-b0_8x1_160k_totaltext_det.py /home/yuhaiyang/mmsegmentation/work_dirs/b0-1024-2048-bs4-acc72-totaltext/iter_320000.pth --show-dir vis_path --work-dir work_path --eval mIoU mFscore --opacity 1.0
+CUDA_VISIBLE_DEVICES=GPU_NUM python tools/test.py config_path pretrained_model_path --show-dir vis_path --work-dir work_path --eval mIoU mFscore --opacity 1.0
 ```
 
 ## Acknowledgement
