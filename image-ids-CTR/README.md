@@ -11,7 +11,7 @@ conda env create -f env.yaml
 ```
 
 ## Download
-* The pre-trained CCR-CLIP model is available in  [BaiduCloud](https://pan.baidu.com/).
+* The pre-trained CCR-CLIP model is available in  [BaiduCloud](https://pan.baidu.com/s/1SOkVASfDDh_oagvP2Jy2IQ)(pw:5qfm).
 * The adopted CTR datasets are derived from the [CTR Benchmark](https://arxiv.org/abs/2112.15093).
 * Following [SDN](https://arxiv.org/abs/2106.11613), we have conducted experiments on three types of CCR datasets. They can be accessed in [link](https://github.com/FudanVI/FudanOCR/tree/main/stroke-level-decomposition).
 
