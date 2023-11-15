@@ -2,10 +2,10 @@
 
 This toolbox contains the implementations of the following papers:
 
-* [Scene Text Segmentation with Text-Focused Transformers](https:) [Yu et al., ACM MM-23]
-* [Weakly-Supervised Text Instance Segmentation](https:) [Zu et al., ACM MM-23]
-* [Chinese Text Recognition with A Pre-Trained CLIP-Like Model Through Image-IDS Aligning](https:) [Yu et al., ICCV-23 (Oral)]
-* [Orientation-Independent Chinese Text Recognition in Scene Images](https:) [Yu et al., IJCAI-23]
+* [Scene Text Segmentation with Text-Focused Transformers](https://dl.acm.org/doi/abs/10.1145/3581783.3611755) [Yu et al., ACM MM-23]
+* [Weakly-Supervised Text Instance Segmentation](https://dl.acm.org/doi/abs/10.1145/3581783.3612243) [Zu et al., ACM MM-23]
+* [Chinese Text Recognition with A Pre-Trained CLIP-Like Model Through Image-IDS Aligning](https://openaccess.thecvf.com/content/ICCV2023/html/Yu_Chinese_Text_Recognition_with_A_Pre-Trained_CLIP-Like_Model_Through_Image-IDS_ICCV_2023_paper.html) [Yu et al., ICCV-23 (Oral)]
+* [Orientation-Independent Chinese Text Recognition in Scene Images](https://arxiv.org/abs/2309.01081) [Yu et al., IJCAI-23]
 * [Towards Accurate Video Text Spotting with Text-wise Semantic Reasoning](https:) [Zu et al., IJCAI-23]
 * [Chinese Character Recognition with Augmented Character Profile Matching](https://dl.acm.org/doi/abs/10.1145/3503161.3547827) [Zu et al., ACM MM-22]
 * [Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution](https://arxiv.org/pdf/2112.08171.pdf) [Chen et al., AAAI-22]
