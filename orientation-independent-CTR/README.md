@@ -11,7 +11,7 @@ conda env create -f env.yaml
 ```
 
 ## Datasets
-In this paper, we propose a Vertical Chinese Text Recognition (VCTR) dataset for comprehensively evaluating CTR methods. The VCTR dataset can be accessed in [link]().
+In this paper, we propose a Vertical Chinese Text Recognition (VCTR) dataset for comprehensively evaluating CTR methods. The VCTR dataset can be accessed in [BaiduCloud](https://pan.baidu.com/s/1PFwTFgku7OOSDJKRIGDvVg)(pw:1kjq).
 
 ## Training
 Please remember to modify config.py and then execute
