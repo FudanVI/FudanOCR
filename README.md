@@ -2,6 +2,7 @@
 
 This toolbox contains the implementations of the following papers:
 
+* [EAFormer: Scene Text Segmentation with Edge-Aware Transformers](https://arxiv.org/abs/2407.17020) [Yu et al., ECCV-24]
 * [Scene Text Segmentation with Text-Focused Transformers](https://dl.acm.org/doi/abs/10.1145/3581783.3611755) [Yu et al., ACM MM-23]
 * [Weakly-Supervised Text Instance Segmentation](https://dl.acm.org/doi/abs/10.1145/3581783.3612243) [Zu et al., ACM MM-23]
 * [Chinese Text Recognition with A Pre-Trained CLIP-Like Model Through Image-IDS Aligning](https://openaccess.thecvf.com/content/ICCV2023/html/Yu_Chinese_Text_Recognition_with_A_Pre-Trained_CLIP-Like_Model_Through_Image-IDS_ICCV_2023_paper.html) [Yu et al., ICCV-23 (Oral)]
