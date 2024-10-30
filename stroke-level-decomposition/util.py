@@ -133,9 +133,7 @@ def tensor2str(mode, tensor):
 
 def must_in_screen():
     text = os.popen('echo $STY').readlines()
-    string = ''
-    for line in text:
-        string += line
+    string = ''.join([line for line in text])
     if len(string.strip()) == 0:
         print("Code must be executed in **SCREEN**!")
         exit(0)
