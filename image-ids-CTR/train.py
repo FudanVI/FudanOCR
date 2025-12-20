@@ -12,9 +12,13 @@ from util import get_data_package, converter, tensor2str, \
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter('runs/{}'.format(datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')))
 
+# backup
 saver()
+
+# check if run in screen
 must_in_screen()
 
+# get required data elements
 alphabet = get_alphabet()
 radical_alphabet = get_radical_alphabet()
 print('alphabet',alphabet)
@@ -22,10 +26,12 @@ print('alphabet',alphabet)
 model = Transformer().cuda()
 model = nn.DataParallel(model)
 
+# continue training ? 
 if config['resume'].strip() != '':
     model.load_state_dict(torch.load(config['resume']))
     print('loading！！！')
 
+# setting optimizer, scheduler, loss function
 optimizer = optim.Adadelta(model.parameters(), lr=config['lr'], rho=0.9, weight_decay=1e-4)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=1)
 
@@ -33,6 +39,7 @@ criterion = torch.nn.CrossEntropyLoss().cuda()
 criterion_dis = torch.nn.MSELoss().cuda()
 best_acc = -1
 
+# dataloader
 train_loader, test_loader = get_data_package()
 
 times = 0
@@ -43,10 +50,14 @@ clip_model = CLIP(embed_dim=2048, context_length=30, vocab_size=len(radical_alph
              transformer_heads=8, transformer_layers=12).cuda()
 clip_model = nn.DataParallel(clip_model)
 clip_model.load_state_dict(torch.load(config['radical_model']), strict=False)
+
+# loading the words you want to recognize
 char_file = open(config['alpha_path'], 'r').read()
 chars = list(char_file)
 tmp_text = convert_char(chars)
 text_features = []
+
+# get the features of text
 iters = len(chars) // 100
 text_features.append(torch.zeros([1, 2048]).cuda())
 with torch.no_grad():
@@ -65,25 +76,33 @@ def train(epoch, iteration, image, length, text_input, text_gt):
     model.train()
     optimizer.zero_grad()
 
+    # Fetches pre-computed embedding vectors for each ground truth label
     reg_list = []
     for item in text_gt:
         reg_list.append(text_features[item].unsqueeze(0))
+        
+    # Concatenate individual features into a batch tensor
     reg = torch.cat(reg_list, dim=0)
 
+    # Forward
     result = model(image, length, text_input)
     text_pred = result['pred']
+    
+    # Feature normalization & similarity calculation
     text_pred = text_pred / text_pred.norm(dim=1, keepdim=True)
     final_res =  text_pred @ text_features.t()
 
+    # Loss compute
     loss_rec = criterion(final_res, text_gt)
     loss_dis = - criterion_dis(text_pred, reg)
     loss = loss_rec + 0.001 * loss_dis
 
-    print('epoch : {} | iter : {}/{} | loss_rec : {} | loss_dis : {}'.format(epoch, iteration, len(train_loader),
-                                                                             loss_rec, loss_dis))
+    # log and backward
+    print('epoch : {} | iter : {}/{} | loss_rec : {} | loss_dis : {}'.format(epoch, iteration, len(train_loader), loss_rec, loss_dis))
     loss.backward()
     optimizer.step()
 
+    # record
     writer.add_scalar('loss', loss, times)
     writer.add_scalar('loss_rec', loss_rec, times)
     writer.add_scalar('loss_dis', loss_dis, times)
@@ -94,9 +113,11 @@ test_time = 0
 @torch.no_grad()
 def test(epoch):
 
-    torch.cuda.empty_cache()
+    torch.cuda.empty_cache()    # avoid OOM
     global test_time
     test_time += 1
+    
+    # Save the current model state
     torch.save(model.state_dict(), './history/{}/model.pth'.format(config['exp_name']))
     result_file = open('./history/{}/result_file_test_{}.txt'.format(config['exp_name'], test_time), 'w+', encoding='utf-8')
 
@@ -112,33 +133,46 @@ def test(epoch):
     for iteration in range(test_loader_len):
         data = dataloader.next()
         image, label, _ = data
+        
+        # Resize image
         image = torch.nn.functional.interpolate(image, size=(config['imageH'], config['imageW']))
 
         length, text_input, text_gt, string_label = converter(label)
         max_length = max(length)
         batch = image.shape[0]
+        
+        # Initialize the prediction
         pred = torch.zeros(batch,1).long().cuda()
         image_features = None
         prob = torch.zeros(batch, max_length).float()
 
+        # auto-regressive decoding loop
         for i in range(max_length):
             length_tmp = torch.zeros(batch).long().cuda() + i + 1
             result = model(image, length_tmp, pred, conv_feature=image_features, test=True)
-
+            
+            # Extract the last predicted character's logits
             prediction = result['pred'][:, -1:, :].squeeze()
             prediction = prediction / prediction.norm(dim=1, keepdim=True)
             prediction = prediction @ text_features.t()
+            
+            # Get the character index with the highest probability (Greedy Search)
             now_pred = torch.max(torch.softmax(prediction,1), 1)[1]
             prob[:,i] = torch.max(torch.softmax(prediction,1), 1)[0]
+            
+            # Append the current prediction to the sequence for the next time step
             pred = torch.cat((pred, now_pred.view(-1,1)), 1)
             image_features = result['conv']
 
+        # Convert Tensors back to Strings
+        # Split the flattened ground truth back into a list per sample
         text_gt_list = []
         start = 0
         for i in length:
             text_gt_list.append(text_gt[start: start + i])
             start += i
 
+        # Process predicted indices, stopping at the 'END' token
         text_pred_list = []
         text_prob_list = []
         for i in range(batch):
@@ -156,6 +190,8 @@ def test(epoch):
             text_prob_list.append(overall_prob)
 
         start = 0
+        
+        # calculate accuracy
         for i in range(batch):
             state = False
             pred = tensor2str(text_pred_list[i])
@@ -176,6 +212,7 @@ def test(epoch):
     print("ACC : {}".format(correct/total))
     global best_acc
 
+    # save best model
     if correct/total > best_acc:
         best_acc = correct / total
         torch.save(model.state_dict(), './history/{}/best_model.pth'.format(config['exp_name']))
@@ -191,8 +228,10 @@ if __name__ == '__main__':
         test(-1)
         exit(0)
 
+    # train and test
     for epoch in range(config['epoch']):
 
+        # train
         torch.save(model.state_dict(), './history/{}/model.pth'.format(config['exp_name']))
 
         dataloader = iter(train_loader)
@@ -203,7 +242,12 @@ if __name__ == '__main__':
             image, label, _ = data
             image = torch.nn.functional.interpolate(image, size=(config['imageH'], config['imageW']))
 
+            # sequence generator (labels to tensors)
             length, text_input, text_gt, string_label = converter(label)
+            
+            # train (one step)
             train(epoch, iteration, image, length, text_input, text_gt)
+            
+        # test
         test(epoch)
         scheduler.step()
